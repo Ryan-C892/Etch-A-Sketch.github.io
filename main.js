@@ -1,68 +1,53 @@
-// Create a grid //
+// Create a grid of square divs //
+// Create a variable that is equal to the container //
+const container = document.querySelector("#container");
+// Create a variable that is equal to the reset button //
+const reset = document.querySelector("#reset");
+// Create a global variable that will be equal to the number of square divs entered in prompt //
 let gridNumber;
-function makeGrid(gridNumber) {
-    // Create a loop that creates a row 16 times //
-    for (let i = 0; i < gridNumber; i++) {
-        let row = document.createElement('div');
-        row.className = "row";
-        // Set row to a maximum of 960 pixels wide //
-        row.style.width = '960px';
-        // Create a loop that creates a box 16 times //
-        for(let j = 0; j < gridNumber; j++) {
-            let box = document.createElement('div');
-            box.className = "box";
-            // Adjust width and height of box so that it gets smaller depending on amount //
-            box.style.width = '26.2px';
-            box.style.height = '26.2px';
-            // Make every div element with a class of box a child of row //
-            row.appendChild(box);
-        }
-        // Make every div element with a class of row a child of container //
-        document.getElementById('container').appendChild(row);
-        document.getElementById('container').style.width = '960px';
+// Create a global variable that will be equal to every div with a class of 'box' //
+let gridBoxes;
+// Create a function that turns container into a grid and creates an equal number //
+// of rows and columns that are the same number entered in prompt //
+function createGrid(gridNumber) {
+    container.style.gridTemplateColumns = `repeat(${gridNumber}, 1fr)`;
+    container.style.gridTemplateRows = `repeat(${gridNumber}, 1fr)`;
+    // Create a for loop that will create divs with the class 'box' //
+    // Append div as child to container //
+    // For loop will iterate through gridnumber twice to represent two dimensions //
+    for (let i = 0; i < gridNumber * gridNumber; i++) {
+        let div = document.createElement('div');
+        div.classList.add('box');
+        container.appendChild(div);
     }
-}
-
-// Change the background color of box during a mouse event //
-function gridColor() {
-    const divs = document.querySelectorAll(".box");
-    divs.forEach( function(div) {
-        div.addEventListener('mouseover', function() {
-            div.style.backgroundColor = randomColor;
+    // let gridBoxes turn 'box' into an array //
+    // Create a forEach function that will look for every 'box'//
+    // Create an event listner that will mouseover every 'box' //
+    gridBoxes = document.querySelectorAll(".box");
+    gridBoxes.forEach( function(gridBox) {
+        gridBox.addEventListener('mouseover', function() {
+            let x = Math.floor(Math.random() * 256);
+            let y = Math.floor(Math.random() * 256);
+            let z = Math.floor(Math.random() * 256);
+            let randomColor = 'rgb(' + x + ', ' + y + ', ' + z + ')';
+            gridBox.style.opacity = (parseFloat(gridBox.style.opacity) || 0) + 0.2;
+            gridBox.style.backgroundColor = randomColor;
         });
     });
 }
 
-// Create a function that randomly picks and return a rgb color value //
-function getRandomColor() {
-    let num = Math.round(0xffffff * Math.random());
-    let red = num >> 16;
-    let green = num >> 8 & 255;
-    let blue = num & 255;
-    return 'rgb(' + red + ', ' + green + ', ' + blue + ')';
-}
-
-// Turn getRandomColor() into a variable that can be called globally //
-// Add new variable into mouseover event listener //
-let randomColor = getRandomColor();
-
-// Create a function that clears the current grid and adds a prompt //
-// Prompt must ask for how many squares per side to make a new grid //
-// The new grid must be generated in the same total space as before //
-// Set the limit for the user input to 100 //
-function resetGrid() {
-    let grids = document.querySelectorAll(".box")
-    grids.forEach(function(grid){
-        grid.addEventListener('click', function() {
-            grid.parentNode.addChild(grid);
-        });
-        grid.parentNode.removeChild(grid);
+// Create an event listener for reset button //
+// gridboxes forEach() gridbox remove child from container //
+reset.addEventListener( 'click', function() {
+    gridBoxes.forEach( function (gridBox) {
+        container.removeChild(gridBox);
     });
-    gridNumber = Number(prompt("Enter grid amount: ", 16)); // Turns input into a number //
-    if (Number(gridNumber) > 100) { // Checks if input is a number that is greater than 100 //
-        prompt("Maximum number is 100. Please enter a new number.", '');
-        return resetGrid();
+    // Within the event listener run the prompt and call createGrid() //
+    gridNumber = prompt("Enter the numbers for the grid.", 16);
+    if (parseInt(gridNumber) > 100) {
+        alert("Please enter a number less than 100.");
+        return gridNumber;
     }
-    makeGrid(gridNumber);
-    gridColor(randomColor);
-}
+    createGrid(gridNumber);
+});
+createGrid(gridNumber);

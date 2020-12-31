@@ -2,26 +2,42 @@ body,html {
     margin: 0 auto;
     padding: 0;
     width: 960px;
-    font-family: sans-serif;
+    background-image: url("https://steamuserimages-a.akamaihd.net/ugc/780734834271570021/B5B11C7CA8F50F6B8ED4BF3D11846EE72DF421C8/?imw=268&imh=268&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true");
+}
+
+h1 {
+    font-size: 1.5rem;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    color: #fff;
+    width: 170px;
+    margin: 0 auto;
+    background: rgba(0,0,0,0.4);
+    text-shadow: 0 0 0.5rem #000;
+}
+
+#container {
+    display: grid;
+    width: 960px;
+    height: 960px;
+    grid-gap: 0;
+    margin: 0 auto;
+    justify-content: stretch;
+    border: 1px solid black;
+    background-color: #fff;
 }
 
 .box {
-    display: inline-block;
     background: #fff;
     border: 1px solid #000;
-    overflow: hidden;
-    margin: 0 auto;
     cursor: pointer;
 }
 
-.row {
-    display: block;
-    float: left;
-    margin: 0 auto;
-}
-
 button {
-    border: 0.5rem solid #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0.5rem solid #fff;
     border-radius: 0.5rem;
     margin: 1rem auto;
     font-size: 1.5rem;
