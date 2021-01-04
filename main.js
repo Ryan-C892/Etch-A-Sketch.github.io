@@ -27,7 +27,7 @@ function createGrid(gridNumber) {
     // Create a forEach function that will look for every 'box'//
     // Create an event listner that will mouseover every 'box' //
     // Style the background color into random colors //
-    // style the opacity to darken //
+    // Style the opacity to darken //
     gridBoxes = document.querySelectorAll(".box");
     gridBoxes.forEach( function(gridBox) {
         gridBox.addEventListener('mouseover', function() {
@@ -70,7 +70,6 @@ function createGrey(gridNumber) {
 // Create an event listener for grey scale button //
 // gridBoxes forEach() gridBox remove child from container //
 grey.addEventListener( 'click', function() {
-    isClicked = false;
     gridBoxes.forEach( function (gridBox) {
         container.removeChild(gridBox);
     });
@@ -86,7 +85,6 @@ createGrey(gridNumber);
 // Create an event listener for reset button //
 // gridBoxes forEach() gridBox remove child from container //
 reset.addEventListener( 'click', function() {
-    isClicked = false;
     gridBoxes.forEach( function (gridBox) {
         container.removeChild(gridBox);
     });
